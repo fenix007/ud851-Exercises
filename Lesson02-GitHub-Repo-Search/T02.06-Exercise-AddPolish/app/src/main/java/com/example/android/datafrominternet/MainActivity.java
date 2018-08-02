@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     public class GithubQueryTask extends AsyncTask<URL, Void, String> {
         @Override
         protected void onPreExecute() {
+            super.onPreExecute();
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
