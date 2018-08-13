@@ -147,13 +147,9 @@ public class MainActivity extends AppCompatActivity {
         String mimeType = "text/plain";
         String title = "title for window";
 
-        Intent intent = ShareCompat.IntentBuilder.from(this)
+        ShareCompat.IntentBuilder.from(this)
                 .setChooserTitle(title)
                 .setType(mimeType)
-                .getIntent();
-
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
+                .startChooser();
     }
 }
