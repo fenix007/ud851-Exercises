@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".VisualizerActivity">
+        <activity android:launchMode="singleTop"
+            android:name=".VisualizerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +23,7 @@
         </activity>
         <activity
             android:parentActivityName=".VisualizerActivity"
-            android:launchMode="singleTop"
+            android:label="@string/settings_title"
             android:name=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
