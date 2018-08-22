@@ -43,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button mButton;
 
-    private TextView mDefinitionTv;
-    private TextView mWordTv;
+    private TextView mDefinitionTv, mWordTv;
+
+    private int mDefCol, mWordCol;
+
 
     // This state is when the word definition is hidden and clicking the button will therefore
     // show the definition
@@ -91,37 +93,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void nextWord() {
 
-        // Change button text
-        mButton.setText(getString(R.string.show_definition));
-
         if (mData != null) {
             if (!mData.moveToNext()) {
                 mData.moveToFirst();
             }
 
-            int wordCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
-            String word = mData.getString(wordCol);
+            String word = mData.getString(mWordCol);
+            String def = mData.getString(mDefCol);
             mWordTv.setText(word);
+            mDefinitionTv.setText(def);
 
             mDefinitionTv.setVisibility(View.INVISIBLE);
-        }
 
-        mCurrentState = STATE_HIDDEN;
+            // Change button text
+            mButton.setText(getString(R.string.show_definition));
+            mCurrentState = STATE_HIDDEN;
+        }
     }
 
     public void showDefinition() {
-
-        // Change button text
-        mButton.setText(getString(R.string.next_word));
-
         if (mData != null) {
-            int definitionCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
-            String definition = mData.getString(definitionCol);
-            mDefinitionTv.setText(definition);
+            // Change button text
+            mButton.setText(getString(R.string.next_word));
+            mDefinitionTv.setVisibility(View.VISIBLE);
+            mCurrentState = STATE_SHOWN;
         }
-
-        mDefinitionTv.setVisibility(View.VISIBLE);
-        mCurrentState = STATE_SHOWN;
     }
 
     @Override
@@ -158,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (cursor != null) {
                 cursor.moveToFirst();
+                mWordCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_WORD);
+                mDefCol = mData.getColumnIndex(DroidTermsExampleContract.COLUMN_DEFINITION);
                 nextWord();
             }
         }
