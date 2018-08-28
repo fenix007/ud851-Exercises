@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.example.android.todolist"
         minSdkVersion 15
@@ -28,7 +28,7 @@ dependencies {
     //FAB dependencies
     compile 'com.android.support:design:27.0.2'
 
-    // TODO (1) Add room dependencies
+    compile 'android.arch.persistence.room:runtime:1.0.0'
 
     //Testing
     // Instrumentation dependencies use androidTestCompile
