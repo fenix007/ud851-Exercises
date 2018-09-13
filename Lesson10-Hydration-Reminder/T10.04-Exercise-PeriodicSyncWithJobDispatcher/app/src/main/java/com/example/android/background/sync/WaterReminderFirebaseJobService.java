@@ -25,7 +25,7 @@ public class WaterReminderFirebaseJobService extends JobService {
 
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
-        class MyClass extends AsyncTask {
+        mBackgroundTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] objects) {
                 ReminderTasks.executeTask(WaterReminderFirebaseJobService.this, ReminderTasks.ACTION_DISMISS_NOTIFICATION);
@@ -36,9 +36,8 @@ public class WaterReminderFirebaseJobService extends JobService {
             protected void onPostExecute(Object o) {
                 jobFinished(jobParameters, false);
             }
-        }
+        };
 
-        mBackgroundTask = new MyClass();
         mBackgroundTask.execute();
 
         return true;

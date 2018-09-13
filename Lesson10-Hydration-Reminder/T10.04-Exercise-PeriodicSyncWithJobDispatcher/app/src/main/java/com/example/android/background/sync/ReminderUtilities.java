@@ -26,9 +26,12 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.Trigger;
 
+import java.util.concurrent.TimeUnit;
+
 public class ReminderUtilities {
-    private static final int REMINDER_INTERVAL_SECONDS = 60*15;
-    private static final int SYNC_FLEXTIME_SECONDS = 60*15;
+    private static final int REMINDER_INTERVAL_MINUTES = 15;
+    private static final int REMINDER_INTERVAL_SECONDS = (int) (TimeUnit.MINUTES.toSeconds(REMINDER_INTERVAL_MINUTES));
+    private static final int SYNC_FLEXTIME_SECONDS = REMINDER_INTERVAL_SECONDS;
     private static final String REMINDER_JOB_TAG = "hydration_reminder_tag";
 
     private static boolean sInitialized;
@@ -47,7 +50,7 @@ public class ReminderUtilities {
                 .setConstraints(Constraint.DEVICE_CHARGING)
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(0, REMINDER_INTERVAL_SECONDS))
+                .setTrigger(Trigger.executionWindow(REMINDER_INTERVAL_SECONDS, REMINDER_INTERVAL_SECONDS + SYNC_FLEXTIME_SECONDS))
                 .setReplaceCurrent(true)
                 .build();
 
